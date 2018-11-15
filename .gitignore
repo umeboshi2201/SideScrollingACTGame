@@ -33,3 +33,5 @@
 
 # Additional Settings
 makefile
+/bin
+/obj
