@@ -15,8 +15,7 @@ class MoveCObj : public CollideObj{
 	public:
 		MoveCObj();
 		~MoveCObj();
-		void setLeftX(double);
-		void setTopY(double);
+		void setLeftTopXY(double, double);
 
 		virtual double getLeftX();
 		virtual double getTopY();

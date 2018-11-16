@@ -4,6 +4,8 @@
 #include "CollideObj.h"
 
 class FloorCObj : public CollideObj{
+	private:
+		bool isEqualDouble(double, double);
 	protected:
 		double startX;
 		double startY;
@@ -11,6 +13,8 @@ class FloorCObj : public CollideObj{
 		double endY;
 		// 左手座標系 時計回りの方向が正の角度
 		double tangent;
+		// doubleの等値として扱える誤差
+		double coordEPS;
 		FloorCObj *nextFloor;
 		FloorCObj *preFloor;
 

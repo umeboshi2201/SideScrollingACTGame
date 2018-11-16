@@ -6,6 +6,7 @@ FloorCObj::FloorCObj(){
 	this->endX = 0;
 	this->endY = 0;
 	this->tangent = 0;
+	this->coordEPS = 0.01;
 	this->active = false;
 	this->nextFloor = nullptr;
 	this->preFloor = nullptr;
@@ -22,8 +23,16 @@ bool FloorCObj::isFloor(){
 	return false;
 }
 
+bool FloorCObj::isEqualDouble(double num1, double num2){
+	const double deltaX = num1 - num2;
+	if(((-1) * this->coordEPS < deltaX) && (deltaX < this->coordEPS)){
+		return true;
+	}
+	return false;
+}
+
 bool FloorCObj::isWallWithCollideRight(){
-	if(this->startX == this->endX){
+	if(this->isEqualDouble(this->startX, this->endX)){
 		if(this->endY < this->startY){
 			return true;
 		}
@@ -32,7 +41,7 @@ bool FloorCObj::isWallWithCollideRight(){
 }
 
 bool FloorCObj::isWallWithCollideLeft(){
-	if(this->startX == this->endX){
+	if(this->isEqualDouble(this->startX, this->endX)){
 		if(this->startY < this->endY){
 			return true;
 		}
@@ -115,7 +124,10 @@ void FloorCObj::setInactive(){
 	this->endX = 0;
 	this->endY = 0;
 	this->tangent = 0;
+	this->coordEPS = 0.01;
 	this->active = false;
+	this->nextFloor = nullptr;
+	this->preFloor = nullptr;
 }
 
 void FloorCObj::interact(CollideObj *){

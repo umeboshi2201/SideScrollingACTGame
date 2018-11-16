@@ -16,11 +16,13 @@ MoveCObj::~MoveCObj(){
 
 }
 
-void MoveCObj::setLeftX(double){
-}
-
-void MoveCObj::setTopY(double){
-
+void MoveCObj::setLeftTopXY(double leftX, double topY){
+	const double deltaX = leftX - this->leftX;
+	const double deltaY = topY - this->topY; 
+	this->leftX = leftX;
+	this->topY = topY;
+	this->rightX = this->rightX + deltaX;
+	this->bottomY = this->bottomY + deltaY;
 }
 
 double MoveCObj::getLeftX(){
@@ -79,7 +81,6 @@ void MoveCObj::interact(CollideObj *obj){
 	//const bool judge2 = this->leftX < targetRightX;
 	//const bool judge3 = targetTopY < this->bottomY;
 	//const bool judge4 = this->topY < targetBottomY;
-	
 	// 計算回数減らすためAND演算子を使う
 	// ぶつかる可能性の方が低いから、ぶつかってないときは全部の論理演算をしないで途中で抜けてほしい
 	// 本来は!(judge1 && judge2 && judge3 && judge4)の論理演算をするつもりだった
@@ -98,7 +99,15 @@ void MoveCObj::interact(CollideObj *obj){
 	// 床判定なら
 	if(fObj->isFloor()){
 		const double moveObjCenterX = this->leftX + (this->rightX - this->leftX) / 2;
+
+		// 中心点が床の幅の中にあったら
 		if((fObj->getEndX() < moveObjCenterX) && (moveObjCenterX < fObj->getStartX())){
+			const double landingPointY = fObj->getStartY() + (moveObjCenterX - fObj->getStartX()) * fObj->getTangent();
+
+			// 着地ポイントより下だったら
+			if(landingPointY < this->bottomY){
+				const double moveDeltaY = this->bottomY - landingPointY;
+			}
 		}
 		else{
 		}
