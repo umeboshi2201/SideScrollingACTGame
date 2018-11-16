@@ -8,14 +8,14 @@ class CollideObj{
 	public:
 		CollideObj();
 		virtual ~CollideObj();
-		virtual int getLeftX() = 0;
-		virtual int getTopY() = 0;
-		virtual int getRightX() = 0;
-		virtual int getBottomY() = 0;
+		virtual double getLeftX() = 0;
+		virtual double getTopY() = 0;
+		virtual double getRightX() = 0;
+		virtual double getBottomY() = 0;
 		virtual bool isActive();
-		virtual void activate(int, int, int, int) = 0;
+		virtual void activate(double, double, double, double) = 0;
 		virtual void setInactive() = 0;
-		virtual void interact(CollideObj &) = 0;
+		virtual void interact(CollideObj *) = 0;
 };
 
 #endif

@@ -7,6 +7,8 @@ FloorCObj::FloorCObj(){
 	this->endY = 0;
 	this->tangent = 0;
 	this->active = false;
+	this->nextFloor = nullptr;
+	this->preFloor = nullptr;
 }
 
 FloorCObj::~FloorCObj(){
@@ -20,18 +22,18 @@ bool FloorCObj::isFloor(){
 	return false;
 }
 
-bool FloorCObj::isRightCollideWall(){
+bool FloorCObj::isWallWithCollideRight(){
 	if(this->startX == this->endX){
-		if(this->startY < this->endY){
+		if(this->endY < this->startY){
 			return true;
 		}
 	}
 	return false;
 }
 
-bool FloorCObj::isLeftCollideWall(){
+bool FloorCObj::isWallWithCollideLeft(){
 	if(this->startX == this->endX){
-		if(this->endY < this->startY){
+		if(this->startY < this->endY){
 			return true;
 		}
 	}
@@ -45,39 +47,55 @@ bool FloorCObj::isCeiling(){
 	return false;
 }
 
+double FloorCObj::getStartX(){
+	return this->startX;
+}
+
+double FloorCObj::getStartY(){
+	return this->startY;
+}
+
+double FloorCObj::getEndX(){
+	return this->endX;
+}
+
+double FloorCObj::getEndY(){
+	return this->endY;
+}
+
 double FloorCObj::getTangent(){
 	return this->tangent;
 }
 
-int FloorCObj::getLeftX(){
+double FloorCObj::getLeftX(){
 	if(this->startX < this->endX){
 		return this->startX;
 	}
 	return this->endX;
 }
 
-int FloorCObj::getTopY(){
+double FloorCObj::getTopY(){
 	if(this->startY < this->endY){
 		return this->startY;
 	}
 	return this->endY;
 }
 
-int FloorCObj::getRightX(){
+double FloorCObj::getRightX(){
 	if(this->startX < this->endX){
 		return this->endX;
 	}
 	return this->startX;
 }
 
-int FloorCObj::getBottomY(){
+double FloorCObj::getBottomY(){
 	if(this->startY < this->endY){
 		return this->endY;
 	}
 	return this->startY;
 }
 
-void FloorCObj::activate(int startX, int endX, int startY, int endY){
+void FloorCObj::activate(double startX, double endX, double startY, double endY){
 	this->startX = startX;
 	this->endX = endX;
 	this->startY = startY;
@@ -100,5 +118,5 @@ void FloorCObj::setInactive(){
 	this->active = false;
 }
 
-void FloorCObj::interact(CollideObj &){
+void FloorCObj::interact(CollideObj *){
 }

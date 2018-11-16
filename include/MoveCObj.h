@@ -5,26 +5,26 @@
 
 class MoveCObj : public CollideObj{
 	protected:
-		int leftX;
-		int rightX;
-		int topY;
-		int bottomY;
-		int preLeftX;
-		int preTopY;
+		double leftX;
+		double rightX;
+		double topY;
+		double bottomY;
+		double preLeftX;
+		double preTopY;
 
 	public:
 		MoveCObj();
 		~MoveCObj();
-		void setLeftX(int, bool);
-		void setTopY(int, bool);
+		void setLeftX(double);
+		void setTopY(double);
 
-		virtual int getLeftX();
-		virtual int getTopY();
-		virtual int getRightX();
-		virtual int getBottomY();
-		virtual void activate(int, int, int, int);
+		virtual double getLeftX();
+		virtual double getTopY();
+		virtual double getRightX();
+		virtual double getBottomY();
+		virtual void activate(double, double, double, double);
 		virtual void setInactive();
-		virtual void interact(CollideObj &);
+		virtual void interact(CollideObj *);
 };
 
 #endif

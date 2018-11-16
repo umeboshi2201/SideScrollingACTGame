@@ -1,4 +1,6 @@
+#include <typeinfo>
 #include "MoveCObj.h"
+#include "FloorCObj.h"
 
 MoveCObj::MoveCObj(){
 	this->leftX = 0;
@@ -14,30 +16,30 @@ MoveCObj::~MoveCObj(){
 
 }
 
-void MoveCObj::setLeftX(int, bool){
+void MoveCObj::setLeftX(double){
 }
 
-void MoveCObj::setTopY(int, bool){
+void MoveCObj::setTopY(double){
 
 }
 
-int MoveCObj::getLeftX(){
+double MoveCObj::getLeftX(){
 	return this->leftX;
 }
 
-int MoveCObj::getTopY(){
+double MoveCObj::getTopY(){
 	return this->topY;
 }
 
-int MoveCObj::getRightX(){
+double MoveCObj::getRightX(){
 	return this->rightX;
 }
 
-int MoveCObj::getBottomY(){
+double MoveCObj::getBottomY(){
 	return this->bottomY;
 }
 
-void MoveCObj::activate(int leftX, int topY, int width, int height){
+void MoveCObj::activate(double leftX, double topY, double width, double height){
 	this->leftX = leftX;
 	this->rightX = leftX + width;
 	this->topY = topY;
@@ -57,6 +59,64 @@ void MoveCObj::setInactive(){
 	this->active = false;
 }
 
-void MoveCObj::interact(CollideObj &){
+void MoveCObj::interact(CollideObj *obj){
+	// アクティブでなかったら
+	if(!this->active){
+		return;
+	}
+
+	// 床判定用のオブジェクトが渡されてなかったら
+	if(typeid(obj) != typeid(FloorCObj*)){
+		return;
+	}
+
+	const double targetLeftX = obj->getLeftX();
+	const double targetTopY = obj->getTopY();
+	const double targetRightX = obj->getRightX();
+	const double targetBottomY = obj->getBottomY();
+
+	//const bool judge1 = targetLeftX < this->rightX;
+	//const bool judge2 = this->leftX < targetRightX;
+	//const bool judge3 = targetTopY < this->bottomY;
+	//const bool judge4 = this->topY < targetBottomY;
+	
+	// 計算回数減らすためAND演算子を使う
+	// ぶつかる可能性の方が低いから、ぶつかってないときは全部の論理演算をしないで途中で抜けてほしい
+	// 本来は!(judge1 && judge2 && judge3 && judge4)の論理演算をするつもりだった
+	// コンパイラが上手いことやってくれそうな気もするが
+	
+	// 矩形範囲内でぶつかってなかったら
+	if(!(targetLeftX < this->rightX) || !(this->leftX < targetRightX) || !(targetTopY < this->bottomY) || !(this->topY < targetBottomY)){
+		// 何もしない
+		return;
+	}
+
+	// ダウンキャスト
+	FloorCObj *fObj = (FloorCObj*)obj;
+
+
+	// 床判定なら
+	if(fObj->isFloor()){
+		const double moveObjCenterX = this->leftX + (this->rightX - this->leftX) / 2;
+		if((fObj->getEndX() < moveObjCenterX) && (moveObjCenterX < fObj->getStartX())){
+		}
+		else{
+		}
+
+	}
+	// 右側に判定のある壁なら
+	else if(fObj->isWallWithCollideRight()){
+		
+	}
+	// 左側に判定のある壁なら
+	else if(fObj->isWallWithCollideLeft()){
+		
+	}
+	// 天井判定なら
+	else if(fObj->isCeiling()){
+
+	}
+
+	return;
 }
 

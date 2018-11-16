@@ -5,29 +5,42 @@
 
 class FloorCObj : public CollideObj{
 	protected:
-		int startX;
-		int startY;
-		int endX;
-		int endY;
+		double startX;
+		double startY;
+		double endX;
+		double endY;
 		// 左手座標系 時計回りの方向が正の角度
 		double tangent;
+		FloorCObj *nextFloor;
+		FloorCObj *preFloor;
 
 	public:
 		FloorCObj();
 		~FloorCObj();
 		bool isFloor();
-		bool isRightCollideWall();
-		bool isLeftCollideWall();
+		// 右側が壁判定になる線分
+		bool isWallWithCollideRight();
+		// 左側が壁判定になる線分
+		bool isWallWithCollideLeft();
 		bool isCeiling();
+		void setNextFloor(FloorCObj *);
+		void setPreFloor(FloorCObj *);
+		double getStartX();
+		double getStartY();
+		double getEndX();
+		double getEndY();
+		FloorCObj *getNextFloor();
+		FloorCObj *getPreFloor();
+		// 壁のときは0を返す
 		double getTangent();
 
-		virtual int getLeftX();
-		virtual int getTopY();
-		virtual int getRightX();
-		virtual int getBottomY();
-		virtual void activate(int, int, int, int);
+		virtual double getLeftX();
+		virtual double getTopY();
+		virtual double getRightX();
+		virtual double getBottomY();
+		virtual void activate(double, double, double, double);
 		virtual void setInactive();
-		virtual void interact(CollideObj &);
+		virtual void interact(CollideObj *);
 };
 
 #endif
