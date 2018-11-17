@@ -190,11 +190,27 @@ void MoveCObj::interact(CollideObj *obj){
 		const double moveObjCenterX = this->leftX + (this->rightX - this->leftX) / 2;
 
 		// 中心点が床の幅の中にあったら
-		if((fObj->getEndX() < moveObjCenterX) && (moveObjCenterX < fObj->getStartX())){
+		if((fObj->getEndX() <= moveObjCenterX) && (moveObjCenterX <= fObj->getStartX())){
 
-			// 着地ポイントより下だったら
+			// 更新前の移動体が床の上にあったなら
+			if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
+
+				// 更新後の移動体が床の下にあったなら
+				if(!isUpperSideOfFloor(this->leftX, this->topY, fObj)){
+					this->setFloorSurface(fObj);
+				}
+
+				// 更新後の移動体が床の上にあったならこの床とは何もしない
+
+			}
+
+			// 更新前の移動体が床の上に無いならこの床とは何もしない
+
 		}
+
+		// 中心点が床の幅の中に無く、次が床だったら
 		else{
+
 		}
 
 	}
@@ -210,6 +226,10 @@ void MoveCObj::interact(CollideObj *obj){
 	else if(fObj->isCeiling()){
 
 	}
+
+	// 更新前の移動体情報を更新
+	this->preLeftX = this->leftX;
+	this->preTopY = this->topY;
 
 	return;
 }
