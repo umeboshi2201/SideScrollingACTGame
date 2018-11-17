@@ -31,7 +31,7 @@ bool FloorCObj::isEqualDouble(double num1, double num2){
 	return false;
 }
 
-bool FloorCObj::isWallWithCollideRight(){
+bool FloorCObj::isWallWithRightCollision(){
 	if(this->isEqualDouble(this->startX, this->endX)){
 		if(this->endY < this->startY){
 			return true;
@@ -40,7 +40,7 @@ bool FloorCObj::isWallWithCollideRight(){
 	return false;
 }
 
-bool FloorCObj::isWallWithCollideLeft(){
+bool FloorCObj::isWallWithLeftCollision(){
 	if(this->isEqualDouble(this->startX, this->endX)){
 		if(this->startY < this->endY){
 			return true;

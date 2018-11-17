@@ -23,9 +23,9 @@ class FloorCObj : public CollideObj{
 		~FloorCObj();
 		bool isFloor();
 		// 右側が壁判定になる線分
-		bool isWallWithCollideRight();
+		bool isWallWithRightCollision();
 		// 左側が壁判定になる線分
-		bool isWallWithCollideLeft();
+		bool isWallWithLeftCollision();
 		bool isCeiling();
 		void setNextFloor(FloorCObj *);
 		void setPreFloor(FloorCObj *);

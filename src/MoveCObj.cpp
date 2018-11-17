@@ -16,6 +16,78 @@ MoveCObj::~MoveCObj(){
 
 }
 
+void MoveCObj::moveToXY(double leftX, double topY){
+	const double width = this->rightX - this->leftX;
+	const double height = this->bottomY - this->topY;
+	this->leftX = leftX;
+	this->topY = topY;
+	this->rightX = this->leftX + width;
+	this->bottomY = this->topY + height;
+}
+
+void MoveCObj::setFloorSurface(FloorCObj *fObj){
+	// ヌルポインタなら何もしない
+	if(fObj == nullptr){
+		return;
+	}
+
+	const double height = this->bottomY - this->topY;
+	const double moveObjCenterX = this->leftX + (this->rightX - this->leftX) / 2;
+	// 床の最初の点と移動体の中心との差
+	const double deltaX = moveObjCenterX - fObj->getStartX();
+	// y軸の着地点
+	const double destinationY = deltaX * fObj->getTangent() + fObj->getStartY();
+
+	this->moveToXY(this->leftX, destinationY - height);
+
+	return;
+}
+
+void MoveCObj::setWallWithRightCollisionSurface(FloorCObj *fObj){
+	// ヌルポインタなら何もしない
+	if(fObj == nullptr){
+		return;
+	}
+
+	const double destinationX = fObj->getStartX();
+	
+	this->moveToXY(destinationX, this->topY);
+
+	return;
+}
+
+void MoveCObj::setWallWithLeftCollisionSurface(FloorCObj *fObj){
+	// ヌルポインタなら何もしない
+	if(fObj == nullptr){
+		return;
+	}
+
+	const double width = this->rightX - this->leftX;
+	const double destinationX = fObj->getStartX();
+
+	this->moveToXY(destinationX - width, this->topY);
+
+	return;
+}
+
+bool MoveCObj::isUpperSideOfFloor(double leftX, double topY, FloorCObj *fObj){
+	if(fObj == nullptr){
+		return;
+	}
+
+	const double moveObjCenterX = leftX + (this->rightX - this->leftX) / 2;
+	const double height = this->bottomY - this->topY;
+	// 床の最初の点と移動体の中心との差
+	const double deltaX = moveObjCenterX - fObj->getStartX();
+	// 移動体の中心点に対応する床の座標
+	const double floorLandingPointY = deltaX * fObj->getTangent() + fObj->getStartY();
+
+	if(topY + height <= floorLandingPointY){
+		return true;
+	}
+	return false;
+}
+
 void MoveCObj::setLeftTopXY(double leftX, double topY){
 	const double deltaX = leftX - this->leftX;
 	const double deltaY = topY - this->topY; 
@@ -24,6 +96,23 @@ void MoveCObj::setLeftTopXY(double leftX, double topY){
 	this->rightX = this->rightX + deltaX;
 	this->bottomY = this->bottomY + deltaY;
 }
+
+bool MoveCObj::isOnWall(){
+	return false;
+}
+
+bool MoveCObj::isOnWallWithRightCollision(){
+	return false;
+}
+
+bool MoveCObj::isOnWallWithLeftCollision(){
+	return false;
+}
+
+bool MoveCObj::isOnCeiling(){
+	return false;
+}
+
 
 double MoveCObj::getLeftX(){
 	return this->leftX;
@@ -102,23 +191,19 @@ void MoveCObj::interact(CollideObj *obj){
 
 		// 中心点が床の幅の中にあったら
 		if((fObj->getEndX() < moveObjCenterX) && (moveObjCenterX < fObj->getStartX())){
-			const double landingPointY = fObj->getStartY() + (moveObjCenterX - fObj->getStartX()) * fObj->getTangent();
 
 			// 着地ポイントより下だったら
-			if(landingPointY < this->bottomY){
-				const double moveDeltaY = this->bottomY - landingPointY;
-			}
 		}
 		else{
 		}
 
 	}
 	// 右側に判定のある壁なら
-	else if(fObj->isWallWithCollideRight()){
+	else if(fObj->isWallWithRightCollision()){
 		
 	}
 	// 左側に判定のある壁なら
-	else if(fObj->isWallWithCollideLeft()){
+	else if(fObj->isWallWithLeftCollision()){
 		
 	}
 	// 天井判定なら
