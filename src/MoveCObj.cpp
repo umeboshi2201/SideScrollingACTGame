@@ -72,7 +72,7 @@ void MoveCObj::setWallWithLeftCollisionSurface(FloorCObj *fObj){
 
 bool MoveCObj::isUpperSideOfFloor(double leftX, double topY, FloorCObj *fObj){
 	if(fObj == nullptr){
-		return;
+		return false;
 	}
 
 	const double moveObjCenterX = leftX + (this->rightX - this->leftX) / 2;
