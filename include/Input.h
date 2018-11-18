@@ -17,10 +17,6 @@ class Input{
 		virtual bool getLeftButtonState() = 0;
 		virtual bool getUpButtonState() = 0;
 		virtual bool getDownButtonState() = 0;
-
-		// キー入力更新関数
-		// 1フレームごとに呼び出す必要がある
-		virtual void updateKeyState() = 0;
 };
 
 #endif

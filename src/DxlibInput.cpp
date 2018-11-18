@@ -84,7 +84,3 @@ bool DxlibInput::getDownButtonState(){
 	}
 	return false;
 }
-
-void DxlibInput::updateKeyState(){
-	return;
-}

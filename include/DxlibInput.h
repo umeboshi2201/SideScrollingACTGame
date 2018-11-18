@@ -19,10 +19,6 @@ class DxlibInput : public Input{
 		virtual bool getLeftButtonState();
 		virtual bool getUpButtonState();
 		virtual bool getDownButtonState();
-
-		// キー入力更新関数
-		// 1フレームごとに呼び出す必要がある
-		virtual void updateKeyState();
 };
 
 #endif
