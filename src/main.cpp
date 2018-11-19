@@ -1,4 +1,6 @@
 #include "DxLib.h"
+#include "Image.h"
+#include "DxlibImage.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
@@ -8,7 +10,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		return -1 ;			// エラーが起きたら直ちに終了
 	}
 
-	DrawPixel( 320 , 240 , GetColor( 255,255,255 ) ) ;	// 点を打つ
+	Image *img = new DxlibImage(nullptr);
+
+	img->drawBox(25, 25, 100, 128, true);
+
+	img->drawLine(150, 150, 300, 300);
 
 	WaitKey() ;				// キー入力待ち
 
