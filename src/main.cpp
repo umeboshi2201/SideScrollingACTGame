@@ -10,12 +10,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		return -1 ;			// エラーが起きたら直ちに終了
 	}
 
-	Image *img = new DxlibImage(nullptr);
-
-	img->drawBox(25, 25, 100, 128, true);
-
-	img->drawLine(150, 150, 300, 300);
-
 	WaitKey() ;				// キー入力待ち
 
 	DxLib_End() ;				// ＤＸライブラリ使用の終了処理
