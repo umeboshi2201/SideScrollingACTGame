@@ -1,10 +1,11 @@
-#ifndef ENTITY_CAMERA_H
-#define ENTITY_CAMERA_H
+#ifndef GAME_CAMERA_H
+#define GAME_CAMERA_H
 
-#include "Image.h"
+class Image;
 
-class EntityCamera{
+class GameCamera{
 	public:
+		virtual ~GameCamera(){}
 		virtual double getLeftX() = 0;
 		virtual double getTopY() = 0;
 		virtual void setLeftX(double) = 0;

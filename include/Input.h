@@ -3,6 +3,7 @@
 
 class Input{
 	public:
+		virtual ~Input(){}
 		// ボタンの入力状態を取得する関数
 		// trueなら押されている
 		virtual bool getOKButtonState() = 0;
