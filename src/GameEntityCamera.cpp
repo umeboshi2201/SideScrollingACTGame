@@ -62,11 +62,13 @@ double GameEntityCamera::getTopY(){
 	return this->topY;
 }
 
-void GameEntityCamera::setLeftX(double){
+void GameEntityCamera::setLeftX(double leftX){
+	this->leftX = leftX;
 	return;
 }
 
-void GameEntityCamera::setTopY(double){
+void GameEntityCamera::setTopY(double topY){
+	this->topY = topY;
 	return;
 }
 

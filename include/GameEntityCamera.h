@@ -12,7 +12,7 @@ namespace gameEntityCameraNS{
 		Image *img;
 		ImageNode *next;
 	};
-	 const double EXTRA_SCREEN_WH = 100.0;
+	 const double EXTRA_SCREEN_WH = 200.0;
 }
 
 class GameEntityCamera : public GameCamera{
