@@ -28,9 +28,9 @@ GameEntityCamera::GameEntityCamera(double width, double height, int layerCount, 
 }
 
 GameEntityCamera::~GameEntityCamera(){
-	delete nodes;
-	delete heads;
-	delete tails;
+	delete[] nodes;
+	delete[] heads;
+	delete[] tails;
 }
 
 void GameEntityCamera::pushImageNode(gameEntityCameraNS::ImageNode *nodePointer, int layerNum){
