@@ -28,6 +28,7 @@ GameEntityCamera::GameEntityCamera(double width, double height, int layerCount, 
 }
 
 GameEntityCamera::~GameEntityCamera(){
+	delete nodes;
 	delete heads;
 	delete tails;
 }
