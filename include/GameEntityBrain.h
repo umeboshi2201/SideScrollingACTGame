@@ -6,7 +6,7 @@
 class GameEntityBrain{
 	public:
 		virtual ~GameEntityBrain(){}
-		void updateEntity(double *, double *, GameEntityState *, CollideObj *, CollideObj *, unsigned int *, unsigned int *, bool *) = 0;
+		virtual void updateEntity(double *, double *, double *, double *, GameEntityState *, CollideObj *, CollideObj *, unsigned int *, unsigned int *, bool *) = 0;
 };
 
 #endif

@@ -10,6 +10,8 @@ class GameEntity{
 	private:
 		double leftX;
 		double topY;
+		double width;
+		double height;
 		GameEntityState state;
 		CollideObj *collideObj1;
 		CollideObj *collideObj2;
@@ -20,6 +22,10 @@ class GameEntity{
 	public:
 		GameEntity();
 		~GameEntity();
+		double getLeftX();
+		double gettopY();
+		double getrightX();
+		double getbottomY();
 		bool getActive();
 		void activate(double, double, GameEntityBrain *);
 		void setInactive();
