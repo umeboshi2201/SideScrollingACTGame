@@ -25,12 +25,16 @@ class MoveCObj : public CollideObj{
 		double bottomY;
 		double preLeftX;
 		double preTopY;
+		bool onFloorFlag;
+		bool onWallWithRightCollisionFlag;
+		bool onWallWithLeftCollisionFlag;
+		bool onCeilingFlag;
 
 	public:
 		MoveCObj();
 		~MoveCObj();
 		void setLeftTopXY(double, double);
-		bool isOnWall();
+		bool isOnFloor();
 		bool isOnWallWithRightCollision();
 		bool isOnWallWithLeftCollision();
 		bool isOnCeiling();

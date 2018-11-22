@@ -9,6 +9,10 @@ MoveCObj::MoveCObj(){
 	this->bottomY = 0;
 	this->preLeftX = 0;
   this->preTopY = 0;
+	this->onFloorFlag = false;
+	this->onWallWithRightCollisionFlag = false;
+	this->onWallWithLeftCollisionFlag = false;
+	this->onCeilingFlag = false;
 	this->active = false;
 }
 
@@ -95,22 +99,26 @@ void MoveCObj::setLeftTopXY(double leftX, double topY){
 	this->topY = topY;
 	this->rightX = this->rightX + deltaX;
 	this->bottomY = this->bottomY + deltaY;
+	this->onFloorFlag = false;
+	this->onWallWithRightCollisionFlag = false;
+	this->onWallWithLeftCollisionFlag = false;
+	this->onCeilingFlag = false;
 }
 
-bool MoveCObj::isOnWall(){
-	return false;
+bool MoveCObj::isOnFloor(){
+	return this->onFloorFlag;
 }
 
 bool MoveCObj::isOnWallWithRightCollision(){
-	return false;
+	return this->onWallWithRightCollisionFlag;
 }
 
 bool MoveCObj::isOnWallWithLeftCollision(){
-	return false;
+	return this->onWallWithLeftCollisionFlag;
 }
 
 bool MoveCObj::isOnCeiling(){
-	return false;
+	return this->onCeilingFlag;
 }
 
 
@@ -137,6 +145,10 @@ void MoveCObj::activate(double leftX, double topY, double width, double height){
 	this->bottomY = topY + height;
 	this->preLeftX = this->leftX;
   this->preTopY = this->topY;
+	this->onFloorFlag = false;
+	this->onWallWithRightCollisionFlag = false;
+	this->onWallWithLeftCollisionFlag = false;
+	this->onCeilingFlag = false;
 	this->active = true;
 }
 
@@ -147,6 +159,10 @@ void MoveCObj::setInactive(){
 	this->bottomY = 0;
 	this->preLeftX = 0;
   this->preTopY = 0;
+	this->onFloorFlag = false;
+	this->onWallWithRightCollisionFlag = false;
+	this->onWallWithLeftCollisionFlag = false;
+	this->onCeilingFlag = false;
 	this->active = false;
 }
 
@@ -197,7 +213,9 @@ void MoveCObj::interact(CollideObj *obj){
 
 				// 更新後の移動体が床の下にあったなら
 				if(!isUpperSideOfFloor(this->leftX, this->topY, fObj)){
+					// 着地させる
 					this->setFloorSurface(fObj);
+					this->onFloorFlag = true;
 				}
 
 				// 更新後の移動体が床の上にあったならこの床とは何もしない
