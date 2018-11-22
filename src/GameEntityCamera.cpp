@@ -79,19 +79,12 @@ void GameEntityCamera::setImage(double leftX, double topY, Image *img, int layer
 		return;
 	}
 
-	if((this->leftX - gameEntityCameraNS::EXTRA_SCREEN_WH <= leftX) && (leftX <= this->leftX + this->width + gameEntityCameraNS::EXTRA_SCREEN_WH) && (this->topY - gameEntityCameraNS::EXTRA_SCREEN_WH <= topY) && (topY <= this->topY + this->height + gameEntityCameraNS::EXTRA_SCREEN_WH)){
-		double dDisplayAreaX = leftX - this->leftX;
-		double dDisplayAreaY = topY - this->topY;
-		int iDisplayAreaX = (int)dDisplayAreaX;
-		int iDisplayAreaY = (int)dDisplayAreaY;
-		nodes[nodeIndex].drawLeftX = iDisplayAreaX;
-		nodes[nodeIndex].drawTopY = iDisplayAreaY;
-		nodes[nodeIndex].img = img;
-		nodes[nodeIndex].next = nullptr;
-
-		this->pushImageNode(&nodes[nodeIndex], layerNum);
-		nodeIndex++;
-	}
+	nodes[nodeIndex].drawLeftX = leftX;
+	nodes[nodeIndex].drawTopY = topY;
+	nodes[nodeIndex].img = img;
+	nodes[nodeIndex].next = nullptr;
+	this->pushImageNode(&nodes[nodeIndex], layerNum);
+	nodeIndex++;
 
 	return;
 }
@@ -100,7 +93,13 @@ void GameEntityCamera::draw(){
 
 	for(int i = 0; i < this->layerCount; i++){
 		for(gameEntityCameraNS::ImageNode *tmpHead = this->heads[i]; tmpHead != nullptr; tmpHead = tmpHead->next){
-			tmpHead->img->drawImage(tmpHead->drawLeftX, tmpHead->drawTopY);
+			if((this->leftX - this->width <= tmpHead->drawLeftX) && (tmpHead->drawLeftX <= this->leftX + this->width * 2) && (this->topY - this->height <= tmpHead->drawTopY) && (tmpHead->drawTopY <= this->topY + this->height * 2)){
+				double dDisplayAreaX = tmpHead->drawLeftX - this->leftX;
+				double dDisplayAreaY = tmpHead->drawTopY - this->topY;
+				int iDisplayAreaX = (int)dDisplayAreaX;
+				int iDisplayAreaY = (int)dDisplayAreaY;
+				tmpHead->img->drawImage(iDisplayAreaX, iDisplayAreaY);
+			}
 		}
 
 		heads[i] = tails[i] = nullptr;
