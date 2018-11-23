@@ -3,8 +3,14 @@
 
 #include "GameEntityState.h"
 
+class GameEntityCamera;
+class CollideObj;
+
 class GameEntityBrain{
+	protected:
+		GameEntityCamera *camera;
 	public:
+		GameEntityBrain(GameEntityCamera *);
 		virtual ~GameEntityBrain(){}
 		virtual void updateEntity(double *, double *, double *, double *, GameEntityState *, CollideObj *, CollideObj *, unsigned int *, unsigned int *, bool *) = 0;
 };

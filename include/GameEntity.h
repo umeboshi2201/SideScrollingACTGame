@@ -5,6 +5,7 @@
 
 class CollideObj;
 class GameEntityBrain;
+class Image;
 
 class GameEntity{
 	private:
