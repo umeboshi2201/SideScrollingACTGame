@@ -23,9 +23,9 @@ class GameEntity{
 		GameEntity();
 		~GameEntity();
 		double getLeftX();
-		double gettopY();
-		double getrightX();
-		double getbottomY();
+		double getTopY();
+		double getRightX();
+		double getBottomY();
 		bool getActive();
 		void activate(double, double, GameEntityBrain *);
 		void setInactive();
