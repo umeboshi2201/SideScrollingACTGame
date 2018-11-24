@@ -3,14 +3,15 @@
 
 class MoveCObj;
 class FloorCObj;
+class CollideObjInitializer;
 
 class MoveAndFloorCObjMgr{
-	protected:
 	public:
-		MoveAndFloorCObjMgr();
-		~MoveAndFloorCObjMgr();
-		MoveCObj *activateMoveCObj();
-		FloorCObj *activateFloorCObj();
+		virtual ~MoveAndFloorCObjMgr();
+		virtual MoveCObj *activateMoveCObj() = 0;
+		virtual FloorCObj *activateFloorCObj() = 0;
+		virtual void initFloors(CollideObjInitializer *) = 0;
+		virtual void resetObjs() = 0;
 };
 
 #endif
