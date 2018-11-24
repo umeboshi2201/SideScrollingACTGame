@@ -6,7 +6,7 @@ class Image;
 class ImageMaker{
 	public:
 		virtual ~ImageMaker(){}
-		virtual Image *getImages(int *length) = 0;
+		virtual Image **getImages(int *length) = 0;
 };
 
 #endif

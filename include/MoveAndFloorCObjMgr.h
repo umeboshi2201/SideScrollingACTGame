@@ -7,10 +7,11 @@ class CollideObjInitializer;
 
 class MoveAndFloorCObjMgr{
 	public:
-		virtual ~MoveAndFloorCObjMgr();
-		virtual MoveCObj *activateMoveCObj() = 0;
-		virtual FloorCObj *activateFloorCObj() = 0;
+		virtual ~MoveAndFloorCObjMgr(){}
+		virtual MoveCObj *getFreeMoveCObj() = 0;
+		virtual FloorCObj *getFreeFloorCObj() = 0;
 		virtual void initFloors(CollideObjInitializer *) = 0;
+		virtual void collisionCalc() = 0;
 		virtual void resetObjs() = 0;
 };
 
