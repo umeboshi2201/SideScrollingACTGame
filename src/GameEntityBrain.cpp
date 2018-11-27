@@ -1,9 +1,9 @@
 #include "GameEntityBrain.h"
 
-class GameEntityCamera;
+class GameCamera;
 class MoveAndFloorCObjMgr;
 
-GameEntityBrain::GameEntityBrain(GameEntityCamera *camera, MoveAndFloorCObjMgr *mgr){
+GameEntityBrain::GameEntityBrain(GameCamera *camera, MoveAndFloorCObjMgr *mgr){
 	this->camera = camera;
 	this->mAFCObjMgr = mgr;
 }

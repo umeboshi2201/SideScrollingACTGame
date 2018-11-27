@@ -40,6 +40,7 @@ bool GameEntity::getActive(){
 }
 
 void GameEntity::activate(double, double, GameEntityBrain *){
+	entAI->initEntity(&leftX, &topY, &width, &height, &state, &collideObj1, &collideObj2, &liveFrame, &stateFrame, &activeFlag);
 }
 
 void GameEntity::setInactive(){

@@ -3,16 +3,16 @@
 
 #include "GameEntityState.h"
 
-class GameEntityCamera;
+class GameCamera;
 class MoveAndFloorCObjMgr;
 class CollideObj;
 
 class GameEntityBrain{
 	protected:
-		GameEntityCamera *camera;
+		GameCamera *camera;
 		MoveAndFloorCObjMgr *mAFCObjMgr;
 	public:
-		GameEntityBrain(GameEntityCamera *, MoveAndFloorCObjMgr *mAFCObjMgr);
+		GameEntityBrain(GameCamera *, MoveAndFloorCObjMgr *mAFCObjMgr);
 		virtual ~GameEntityBrain(){}
 		virtual void updateEntity(double *, double *, double *, double *, GameEntityState *, CollideObj *, CollideObj *, unsigned int *, unsigned int *, bool *) = 0;
 		virtual void initEntity(double *, double *, double *, double *, GameEntityState *, CollideObj **, CollideObj **, unsigned int *, unsigned int *, bool *) = 0;
