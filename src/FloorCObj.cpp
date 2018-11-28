@@ -56,6 +56,14 @@ bool FloorCObj::isCeiling(){
 	return false;
 }
 
+void FloorCObj::setNextFloor(FloorCObj *floor){
+	this->nextFloor = floor;
+}
+
+void FloorCObj::setPreFloor(FloorCObj *floor){
+	this->preFloor = floor;
+}
+
 double FloorCObj::getStartX(){
 	return this->startX;
 }
