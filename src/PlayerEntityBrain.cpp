@@ -7,6 +7,7 @@
 #include "MoveCObj.h"
 #include "MoveAndFloorCObjMgr.h"
 #include "Image.h"
+#include "GameCamera.h"
 
 PlayerEntityBrain::PlayerEntityBrain(GameCamera *camera, MoveAndFloorCObjMgr *mgr, Input *input, Image *playerImage) : GameEntityBrain(camera, mgr){
 	this->input = input;
