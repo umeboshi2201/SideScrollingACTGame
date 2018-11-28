@@ -2,15 +2,19 @@
 #define GAME_ENTITY_BRAIN_MAKER_H
 
 class GameEntityBrain;
-class GameEntityCamera;
+class GameCamera;
 class ImageMaker;
+class MoveAndFloorCObjMgr;
+class Input;
 
 class GameEntityBrainMaker{
 	protected:
-		GameEntityCamera *camera;
+		GameCamera *camera;
 		ImageMaker *imageMaker;
+		MoveAndFloorCObjMgr *mAFCObjMgr;
+		Input *input;
 	public:
-		GameEntityBrainMaker(GameEntityCamera *, ImageMaker *);
+		GameEntityBrainMaker(GameCamera *, ImageMaker *, MoveAndFloorCObjMgr *, Input *);
 		virtual ~GameEntityBrainMaker(){}
 		virtual GameEntityBrain **getBrains(int *length) = 0;
 };

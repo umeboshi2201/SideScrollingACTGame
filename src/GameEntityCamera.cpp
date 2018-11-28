@@ -6,18 +6,21 @@ GameEntityCamera::GameEntityCamera(double width, double height, int layerCount, 
 	this->topY = 0;
 	this->width = width;
 	this->height = height;
+
 	if(layerCount <= 0){
 		this->layerCount = 1;
 	}
 	else{
 		this->layerCount = layerCount;
 	}
+
 	if(nodeCount <= 0){
 		this->nodeCount = 1;
 	}
 	else{
 		this->nodeCount = nodeCount;
 	}
+
 	this->nodeIndex = 0;
 	nodes = new gameEntityCameraNS::ImageNode[nodeCount];
 	heads = new gameEntityCameraNS::ImageNode*[layerCount];

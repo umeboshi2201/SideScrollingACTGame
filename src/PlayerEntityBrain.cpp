@@ -30,11 +30,6 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 	// ダウンキャスト
 	MoveCObj *bufMoveObj = (MoveCObj *)pMoveObj;
 
-	bool isOnFloor = bufMoveObj->isOnFloor();
-	bool isOnWallWithRightCollision = bufMoveObj->isOnWallWithRightCollision();
-	bool isOnWallWithLeftCollision = bufMoveObj->isOnWallWithLeftCollision();
-	bool isOnCeiling = bufMoveObj->isOnCeiling();
-
 	// STATE1 空中下降状態
 	// STATE2 地上
 	// STATE3 空中上昇状態
@@ -54,10 +49,12 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 			bufMoveObj->setLeftTopXY(*leftX, *topY);
 
 			// 着地したら
-			if(isOnFloor){
+			if(bufMoveObj->isOnFloor()){
 				*state = GameEntityState::STATE2;
 				*stateFrame = 0;
 			}
+
+			*stateFrame = *stateFrame + 1;
 
 			break;
 
@@ -77,6 +74,8 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 				*state = GameEntityState::STATE3;
 				*stateFrame = 0;
 			}
+
+			*stateFrame = *stateFrame + 1;
 
 			break;
 
@@ -99,14 +98,17 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 				*stateFrame = 0;
 			}
 
+			*stateFrame = *stateFrame + 1;
+
 			break;
 
 		default:
+
 			break;
 
 	}
 
-	this->camera->setImage(*leftX, *topY, this->image, 0);
+	this->camera->setImage(*leftX, *topY, this->image, 1);
 
 	return;
 }

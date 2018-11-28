@@ -4,7 +4,7 @@
 #include "GameEntityBrainMaker.h"
 
 class GameEntityBrain;
-class GameEntityCamera;
+class GameCamera;
 class ImageMaker;
 
 class TestGEBMaker : public GameEntityBrainMaker{
@@ -12,7 +12,7 @@ class TestGEBMaker : public GameEntityBrainMaker{
 		GameEntityBrain **brains;
 		int brainLength;
 	public:
-		TestGEBMaker(GameEntityCamera *, ImageMaker *);
+		TestGEBMaker(GameCamera *, ImageMaker *, MoveAndFloorCObjMgr *, Input *);
 		virtual ~TestGEBMaker();
 		virtual GameEntityBrain **getBrains(int *length);
 };
