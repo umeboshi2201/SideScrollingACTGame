@@ -30,6 +30,10 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 	// ダウンキャスト
 	MoveCObj *bufMoveObj = (MoveCObj *)pMoveObj;
 
+	// 衝突判定の変化分の補正をかける
+	*leftX = pMoveObj->getLeftX();
+	*topY = pMoveObj->getTopY();
+
 	// STATE1 空中下降状態
 	// STATE2 地上
 	// STATE3 空中上昇状態
