@@ -43,7 +43,7 @@ void GameEntity::activate(double leftX, double topY, GameEntityBrain *brain){
 	this->leftX = leftX;
 	this->topY = topY;
 	this->entAI = brain;
-	this->entAI->initEntity(&this->leftX, &this->topY, &this->width, &this->height, &this->state, &this->collideObj1, &this->collideObj2, &this->liveFrame, &this->stateFrame, &this->activeFlag);
+	this->entAI->initEntity(&(this->leftX), &(this->topY), &(this->width), &(this->height), &(this->state), &(this->collideObj1), &(this->collideObj2), &(this->liveFrame), &(this->stateFrame), &(this->activeFlag));
 }
 
 void GameEntity::setInactive(){

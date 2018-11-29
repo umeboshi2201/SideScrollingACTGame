@@ -18,12 +18,13 @@ PlayerEntityBrain::~PlayerEntityBrain(){
 }
 
 void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width, double *height, GameEntityState *state, CollideObj *collisionObj, CollideObj *pMoveObj, unsigned int *liveFrame, unsigned int *stateFrame, bool *activeFlag){
+
 	// もし渡されたCollideObjがMoveCObjじゃなかったら何もしない
-	if(typeid(pMoveObj) != typeid(MoveCObj *)){
+	if(typeid(*pMoveObj) != typeid(MoveCObj)){
 		return;
 	}
 
-	const double GRAVITY = 1; 
+	const double GRAVITY = 0.5; 
 	const double JUMPV0 = 10;
 	const double moveDeltaX = 3;
 
@@ -41,6 +42,14 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 		case GameEntityState::STATE1:
 
+			// 着地したら
+			if(bufMoveObj->isOnFloor()){
+				*state = GameEntityState::STATE2;
+				*stateFrame = 0;
+				bufMoveObj->setLeftTopXY(*leftX, *topY);
+				break;
+			}
+
 			*topY = *topY + GRAVITY * (*stateFrame + 1);
 
 			if(this->input->getLeftButtonState()){
@@ -52,17 +61,17 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 			bufMoveObj->setLeftTopXY(*leftX, *topY);
 
-			// 着地したら
-			if(bufMoveObj->isOnFloor()){
-				*state = GameEntityState::STATE2;
-				*stateFrame = 0;
-			}
-
 			*stateFrame = *stateFrame + 1;
 
 			break;
 
 		case GameEntityState::STATE2:
+
+			// 足場から離れてしまったら
+			if(!bufMoveObj->isOnFloor()){
+				*state = GameEntityState::STATE1;
+				*stateFrame = 0;
+			}
 
 			if(this->input->getLeftButtonState()){
 				*leftX -= moveDeltaX;
@@ -102,6 +111,12 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 				*stateFrame = 0;
 			}
 
+			// 上昇が終わったら
+			if(- JUMPV0 + GRAVITY * (*stateFrame) > 0.0){
+				*state = GameEntityState::STATE1;
+				*stateFrame = 0;
+			}
+
 			*stateFrame = *stateFrame + 1;
 
 			break;
@@ -123,7 +138,7 @@ void PlayerEntityBrain::initEntity(double *leftX, double *topY, double *width, d
 	*state = GameEntityState::STATE1;
 	*ppCollisionObj = nullptr;
 	*ppMoveObj = this->mAFCObjMgr->getFreeMoveCObj();
-	(*ppMoveObj)->activate(*leftX, *height, *leftX + *width, *topY + *height);
+	(*ppMoveObj)->activate(*leftX, *topY, *width, *height);
 	*liveFrame = 0;
 	*stateFrame = 0;
 	*activeFlag = true;

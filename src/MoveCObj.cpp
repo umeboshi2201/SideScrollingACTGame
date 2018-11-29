@@ -2,6 +2,8 @@
 #include "MoveCObj.h"
 #include "FloorCObj.h"
 
+#include "DxLib.h"
+
 MoveCObj::MoveCObj(){
 	this->leftX = 0;
 	this->rightX = 0;
@@ -173,7 +175,7 @@ void MoveCObj::interact(CollideObj *obj){
 	}
 
 	// 床判定用のオブジェクトが渡されてなかったら
-	if(typeid(obj) != typeid(FloorCObj*)){
+	if(typeid(*obj) != typeid(FloorCObj)){
 		return;
 	}
 
@@ -192,14 +194,13 @@ void MoveCObj::interact(CollideObj *obj){
 	// コンパイラが上手いことやってくれそうな気もするが
 	
 	// 矩形範囲内でぶつかってなかったら
-	if(!(targetLeftX < this->rightX) || !(this->leftX < targetRightX) || !(targetTopY < this->bottomY) || !(this->topY < targetBottomY)){
-		// 何もしない
-		return;
-	}
+	//if(!(targetLeftX < this->rightX) || !(this->leftX < targetRightX) || !(targetTopY < this->bottomY) || !(this->topY < targetBottomY)){
+	//	// 何もしない
+	//	return;
+	//}
 
 	// ダウンキャスト
 	FloorCObj *fObj = (FloorCObj*)obj;
-
 
 	// 床判定なら
 	if(fObj->isFloor()){
@@ -209,18 +210,22 @@ void MoveCObj::interact(CollideObj *obj){
 		if((fObj->getEndX() <= moveObjCenterX) && (moveObjCenterX <= fObj->getStartX())){
 
 			// 更新前の移動体が床の上にあったなら
-			if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
+			//if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
 
 				// 更新後の移動体が床の下にあったなら
 				if(!isUpperSideOfFloor(this->leftX, this->topY, fObj)){
 					// 着地させる
 					this->setFloorSurface(fObj);
 					this->onFloorFlag = true;
+
+					// 更新前の移動体情報を更新
+					this->preLeftX = this->leftX;
+					this->preTopY = this->topY;
 				}
 
 				// 更新後の移動体が床の上にあったならこの床とは何もしない
 
-			}
+			//}
 
 			// 更新前の移動体が床の上に無いならこの床とは何もしない
 
@@ -244,10 +249,6 @@ void MoveCObj::interact(CollideObj *obj){
 	else if(fObj->isCeiling()){
 
 	}
-
-	// 更新前の移動体情報を更新
-	this->preLeftX = this->leftX;
-	this->preTopY = this->topY;
 
 	return;
 }

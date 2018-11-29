@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		GameEntity *ents = new GameEntity[GAME_ENTITY_MAX];
 		Input *input = new DxlibInput();
-		GameCamera *camera = new GameEntityCamera(640, 480, 1, 10);
+		GameCamera *camera = new GameEntityCamera(640, 480, 1, 50);
 		ImageMaker *imgMaker = new DxlibImageMaker();
 		MoveAndFloorCObjMgr *mAFCOMgr = new BFMoveAndFloorCObjMgr();
 		GameEntityBrainMaker *brainMaker = new TestGEBMaker(camera, imgMaker, mAFCOMgr, input);
@@ -61,12 +61,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			std::cout << "error" << std::endl;
-
 			mAFCOMgr->collisionCalc();
 
-			//camera->setLeftX(ents[0].getLeftX() - 300);
-			//camera->setTopY(ents[0].getTopY() - 240);
+			camera->setLeftX(ents[0].getLeftX() - 300);
+			camera->setTopY(ents[0].getTopY() - 240);
 
 			stageMgr->drawFloor();
 

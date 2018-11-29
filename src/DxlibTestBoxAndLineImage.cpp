@@ -16,12 +16,12 @@ void DxlibTestBoxAndLineImage::drawImage(int startX, int startY){
 		
 		// 線を描画
 		// 終端座標までは描き切られないので、＋１することで書ききらせる
-		DrawLine(startX, startY, startX + this->nextX + 1, startY + this->nextY + 1, Cr);
+		DrawLine(startX, startY, startX + this->nextX, startY + this->nextY, Cr);
 
 	}
 	else{
 		// 青色の値を取得
-		Cr = GetColor(0, 0, 255);
+		Cr = GetColor(255, 255, 255);
 		
 		// 四角形を描画
 		// 指定された点に描画させるための補正

@@ -112,7 +112,7 @@ double FloorCObj::getBottomY(){
 	return this->startY;
 }
 
-void FloorCObj::activate(double startX, double endX, double startY, double endY){
+void FloorCObj::activate(double startX, double startY, double endX, double endY){
 	this->startX = startX;
 	this->endX = endX;
 	this->startY = startY;

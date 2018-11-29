@@ -73,7 +73,7 @@ void TestStageMgr::TestStageMgrInitializer::initObjs(CollideObj *objs, int lengt
 	}
 
 	// 渡されたのがFloorCObjじゃなかったら何もしない
-	if(typeid(objs) != typeid(FloorCObj *)){
+	if(typeid(*objs) != typeid(FloorCObj)){
 		return;
 	}
 
