@@ -39,8 +39,11 @@ bool GameEntity::getActive(){
 	return this->activeFlag;
 }
 
-void GameEntity::activate(double, double, GameEntityBrain *){
-	entAI->initEntity(&leftX, &topY, &width, &height, &state, &collideObj1, &collideObj2, &liveFrame, &stateFrame, &activeFlag);
+void GameEntity::activate(double leftX, double topY, GameEntityBrain *brain){
+	this->leftX = leftX;
+	this->topY = topY;
+	this->entAI = brain;
+	this->entAI->initEntity(&this->leftX, &this->topY, &this->width, &this->height, &this->state, &this->collideObj1, &this->collideObj2, &this->liveFrame, &this->stateFrame, &this->activeFlag);
 }
 
 void GameEntity::setInactive(){
@@ -58,5 +61,5 @@ void GameEntity::setInactive(){
 }
 
 void GameEntity::update(){
-	entAI->updateEntity(&leftX, &topY, &width, &height, &state, collideObj1, collideObj2, &liveFrame, &stateFrame, &activeFlag);
+	this->entAI->updateEntity(&leftX, &topY, &width, &height, &state, collideObj1, collideObj2, &liveFrame, &stateFrame, &activeFlag);
 }

@@ -56,13 +56,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			ClearDrawScreen();
 
 			for(int i = 0; i < GAME_ENTITY_MAX; i++){
-				ents[i].update();
+				if(ents[i].getActive()){
+					ents[i].update();
+				}
 			}
+
+			std::cout << "error" << std::endl;
 
 			mAFCOMgr->collisionCalc();
 
-			camera->setLeftX(ents[0].getLeftX() - 300);
-			camera->setTopY(ents[0].getTopY() - 240);
+			//camera->setLeftX(ents[0].getLeftX() - 300);
+			//camera->setTopY(ents[0].getTopY() - 240);
 
 			stageMgr->drawFloor();
 
