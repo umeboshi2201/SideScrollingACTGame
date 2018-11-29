@@ -1,11 +1,14 @@
 #include "DxLib.h"
-#include "Image.h"
-#include "DxlibImage.h"
-#include "DxlibTestBoxAndLineImage.h"
 #include "GameCamera.h"
 #include "GameEntityCamera.h"
 #include "Input.h"
 #include "DxlibInput.h"
+#include "ImageMaker.h"
+#include "DxlibImageMaker.h"
+#include "MoveAndFloorCObjMgr.h"
+#include "BFMoveAndFloorCObjMgr.h"
+#include "GameEntityBrainMaker.h"
+#include "TestGEBMaker.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
@@ -23,10 +26,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Input *input = new DxlibInput();
-
 	GameCamera *camera = new GameEntityCamera(640, 480, 1, 10);
-
-	Image *img = new DxlibTestBoxAndLineImage(100, 150, true);
+	ImageMaker *imgMaker = new DxlibImageMaker();
+	MoveAndFloorCObjMgr *mAFCOMgr = new BFMoveAndFloorCObjMgr();
+	GameEntityBrainMaker *brainMaker = new TestGEBMaker(camera, imgMaker, mAFCOMgr, input);
 
 	double cameraNextX = 0;
 	double cameraNextY = 0;
@@ -63,7 +66,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		camera->setLeftX(cameraNextX);
 		camera->setTopY(cameraNextY);
 
-		camera->setImage(50, 100, img, 1);
 
 		camera->draw();
 
@@ -71,7 +73,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		ScreenFlip();
 	}
 
-	delete img;
 	delete camera;
 	delete input;
 

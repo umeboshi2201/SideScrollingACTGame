@@ -5,7 +5,7 @@
 
 BFMoveAndFloorCObjMgr::BFMoveAndFloorCObjMgr(){
 	this->moveCObjLength = 5;
-	this->floorCObjLength = 5;
+	this->floorCObjLength = 15;
 	this->moveCObjs = new MoveCObj[this->moveCObjLength];
 	this->floorCObjs = new FloorCObj[this->floorCObjLength];
 }

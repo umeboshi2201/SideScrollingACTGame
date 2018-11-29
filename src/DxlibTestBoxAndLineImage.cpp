@@ -7,7 +7,7 @@ DxlibTestBoxAndLineImage::DxlibTestBoxAndLineImage(int nextX, int nextY, bool is
 	this->isLine = isLine;
 }
 
-void DxlibTestBoxAndLineImage::drawImage(int leftX, int topY){
+void DxlibTestBoxAndLineImage::drawImage(int startX, int startY){
 	unsigned int Cr;
 
 	if(isLine){
@@ -16,7 +16,7 @@ void DxlibTestBoxAndLineImage::drawImage(int leftX, int topY){
 		
 		// 線を描画
 		// 終端座標までは描き切られないので、＋１することで書ききらせる
-		DrawLine(leftX, topY, leftX + this->nextX + 1, topY + this->nextY + 1, Cr);
+		DrawLine(startX, startY, startX + this->nextX + 1, startY + this->nextY + 1, Cr);
 
 	}
 	else{
@@ -25,7 +25,7 @@ void DxlibTestBoxAndLineImage::drawImage(int leftX, int topY){
 		
 		// 四角形を描画
 		// 指定された点に描画させるための補正
-		DrawBox(leftX, topY, leftX + this->nextX + 1, topY + this->nextY + 1, Cr, true);
+		DrawBox(startX, startY, startX + this->nextX + 1, startY + this->nextY + 1, Cr, true);
 	}
 
 	return;

@@ -3,6 +3,10 @@
 #include "TestStageMgr.h"
 #include "CollideObj.h"
 #include "FloorCObj.h"
+#include "GameCamera.h"
+#include "ImageMaker.h"
+#include "GameEntityBrainMaker.h"
+#include "GameEntity.h"
 
 TestStageMgr::TestStageMgr(GameCamera *camera, GameEntityBrainMaker *brainMaker, ImageMaker *imageMaker) : StageMgr(camera, brainMaker, imageMaker){
 	this->initializer = new TestStageMgr::TestStageMgrInitializer();
@@ -16,10 +20,39 @@ CollideObjInitializer *TestStageMgr::getFloorCObjInitializer(){
 	return this->initializer;
 }
 
+// フラット
+//this->imgs[1] = new DxlibTestBoxAndLineImage(100, 0, true);
+// 右上に上がる
+//this->imgs[2] = new DxlibTestBoxAndLineImage(100, -100, true);
+// 右下に下がる
+//this->imgs[3] = new DxlibTestBoxAndLineImage(100, 100, true);
 void TestStageMgr::drawFloor(){
+	int imageLength;
+	Image **imgs = imageMaker->getImages(&imageLength);
+
+	camera->setImage(0, 400, imgs[1], 1);
+	camera->setImage(100, 400, imgs[2], 1);
+	camera->setImage(200, 300, imgs[1], 1);
+	camera->setImage(300, 300, imgs[3], 1);
+	camera->setImage(400, 400, imgs[1], 1);
+	camera->setImage(500, 400, imgs[2], 1);
+	camera->setImage(600, 300, imgs[3], 1);
+	camera->setImage(700, 400, imgs[2], 1);
+	camera->setImage(800, 300, imgs[3], 1);
+	camera->setImage(900, 400, imgs[1], 1);
 }
 
-void TestStageMgr::gameEntInit(GameEntity *, int){
+void TestStageMgr::gameEntInit(GameEntity *ents, int entLength){
+	const int STAGE_ENTITY_LENGTH = 2;
+
+	if(entLength <= STAGE_ENTITY_LENGTH){
+		return;
+	}
+
+	int brainLength;
+	GameEntityBrain **brains = brainMaker->getBrains(&brainLength);
+	
+	ents[0].activate(10, 100, brains[0]);
 }
 
 
