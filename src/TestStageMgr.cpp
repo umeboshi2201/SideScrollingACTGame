@@ -65,7 +65,7 @@ TestStageMgr::TestStageMgrInitializer::~TestStageMgrInitializer(){
 // ステージの床を生成
 void TestStageMgr::TestStageMgrInitializer::initObjs(CollideObj *objs, int length){
 
-	const int STAGE_FLOOR_LENGTH = 10;
+	const int STAGE_FLOOR_LENGTH = 11;
 
 	// 長さが足りなかったら何もしない
 	if(length < STAGE_FLOOR_LENGTH){
@@ -81,16 +81,17 @@ void TestStageMgr::TestStageMgrInitializer::initObjs(CollideObj *objs, int lengt
 	FloorCObj *floors = (FloorCObj *)objs;
 
 	// endX < startX のとき床
-	floors[0].activate(1000, 400, 900, 400);
-	floors[1].activate(900, 400, 800, 300);
-	floors[2].activate(800, 300, 700, 400);
-	floors[3].activate(700, 400, 600, 300);
-	floors[4].activate(600, 300, 500, 400);
-	floors[5].activate(500, 400, 400, 400);
-	floors[6].activate(400, 400, 300, 300);
-	floors[7].activate(300, 300, 200, 300);
-	floors[8].activate(200, 300, 100, 400);
-	floors[9].activate(100, 400, 0, 400);
+	floors[0].activate(2000, 400, 1000, 400);
+	floors[1].activate(1000, 400, 900, 400);
+	floors[2].activate(900, 400, 800, 300);
+	floors[3].activate(800, 300, 700, 400);
+	floors[4].activate(700, 400, 600, 300);
+	floors[5].activate(600, 300, 500, 400);
+	floors[6].activate(500, 400, 400, 400);
+	floors[7].activate(400, 400, 300, 300);
+	floors[8].activate(300, 300, 200, 300);
+	floors[9].activate(200, 300, 100, 400);
+	floors[10].activate(100, 400, 0, 400);
 
 	// startXYに接続しているのがpre
 	// endXYに接続してるのがNext

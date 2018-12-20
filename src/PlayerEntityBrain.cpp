@@ -26,14 +26,17 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 	const double GRAVITY = 0.5; 
 	const double JUMPV0 = 10;
-	const double moveDeltaX = 3;
+	const double moveDeltaX = 6;
+
+	double deltaX = 0;
+	double deltaY = 0;
 
 	// ダウンキャスト
 	MoveCObj *bufMoveObj = (MoveCObj *)pMoveObj;
 
 	// 衝突判定の変化分の補正をかける
-	*leftX = pMoveObj->getLeftX();
-	*topY = pMoveObj->getTopY();
+	*leftX = deltaX = pMoveObj->getLeftX();
+	*topY = deltaY = pMoveObj->getTopY();
 
 	// STATE1 空中下降状態
 	// STATE2 地上
@@ -46,20 +49,20 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 			if(bufMoveObj->isOnFloor()){
 				*state = GameEntityState::STATE2;
 				*stateFrame = 0;
-				bufMoveObj->setLeftTopXY(*leftX, *topY);
+				bufMoveObj->setLeftTopXY(deltaX, deltaY);
 				break;
 			}
 
-			*topY = *topY + GRAVITY * (*stateFrame + 1);
+			deltaY = deltaY + GRAVITY * (*stateFrame + 1);
 
 			if(this->input->getLeftButtonState()){
-				*leftX -= moveDeltaX;
+				deltaX -= moveDeltaX;
 			}
 			if(this->input->getRightButtonState()){
-				*leftX += moveDeltaX;
+				deltaX += moveDeltaX;
 			}
 
-			bufMoveObj->setLeftTopXY(*leftX, *topY);
+			bufMoveObj->setLeftTopXY(deltaX, deltaY);
 
 			*stateFrame = *stateFrame + 1;
 
@@ -74,13 +77,13 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 			}
 
 			if(this->input->getLeftButtonState()){
-				*leftX -= moveDeltaX;
+				deltaX -= moveDeltaX;
 			}
 			if(this->input->getRightButtonState()){
-				*leftX += moveDeltaX;
+				deltaX += moveDeltaX;
 			}
 			
-			bufMoveObj->setLeftTopXY(*leftX, *topY);
+			bufMoveObj->setLeftTopXY(deltaX, deltaY);
 
 			// ジャンプボタンを押したら
 			if(this->input->getJumpButtonState()){
@@ -94,16 +97,16 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 		case GameEntityState::STATE3:
 
-			*topY = (*topY) - JUMPV0 + GRAVITY * (*stateFrame);
+			deltaY = (deltaY) - JUMPV0 + GRAVITY * (*stateFrame);
 			
 			if(this->input->getLeftButtonState()){
-				*leftX -= moveDeltaX;
+				deltaX -= moveDeltaX;
 			}
 			if(this->input->getRightButtonState()){
-				*leftX += moveDeltaX;
+				deltaX += moveDeltaX;
 			}
 
-			bufMoveObj->setLeftTopXY(*leftX, *topY);
+			bufMoveObj->setLeftTopXY(deltaX, deltaY);
 
 			// ジャンプボタンを離したら
 			if(!this->input->getJumpButtonState()){

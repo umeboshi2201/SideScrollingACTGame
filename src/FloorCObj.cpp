@@ -80,6 +80,15 @@ double FloorCObj::getEndY(){
 	return this->endY;
 }
 
+FloorCObj * FloorCObj::getNextFloor(){
+	return this->nextFloor;
+}
+
+FloorCObj * FloorCObj::getPreFloor(){
+	return this->preFloor;
+}
+
+
 double FloorCObj::getTangent(){
 	return this->tangent;
 }
@@ -122,8 +131,10 @@ void FloorCObj::activate(double startX, double startY, double endX, double endY)
 	const double deltaY = endY - startY;
 	if(endX != startX){
 		this->tangent = deltaY / deltaX;
+		return;
 	}
 	this->tangent = 0;
+	return;
 }
 
 void FloorCObj::setInactive(){

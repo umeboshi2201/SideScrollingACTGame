@@ -95,6 +95,8 @@ bool MoveCObj::isUpperSideOfFloor(double leftX, double topY, FloorCObj *fObj){
 }
 
 void MoveCObj::setLeftTopXY(double leftX, double topY){
+	this->preLeftX = this->leftX;
+	this->preTopY = this->topY;
 	const double deltaX = leftX - this->leftX;
 	const double deltaY = topY - this->topY; 
 	this->leftX = leftX;
@@ -194,10 +196,10 @@ void MoveCObj::interact(CollideObj *obj){
 	// コンパイラが上手いことやってくれそうな気もするが
 	
 	// 矩形範囲内でぶつかってなかったら
-	//if(!(targetLeftX < this->rightX) || !(this->leftX < targetRightX) || !(targetTopY < this->bottomY) || !(this->topY < targetBottomY)){
-	//	// 何もしない
-	//	return;
-	//}
+	if(!(targetLeftX < this->rightX) || !(this->leftX < targetRightX) || !(targetTopY < this->bottomY) || !(this->topY < targetBottomY)){
+		// 何もしない
+		return;
+	}
 
 	// ダウンキャスト
 	FloorCObj *fObj = (FloorCObj*)obj;
@@ -210,31 +212,108 @@ void MoveCObj::interact(CollideObj *obj){
 		if((fObj->getEndX() <= moveObjCenterX) && (moveObjCenterX <= fObj->getStartX())){
 
 			// 更新前の移動体が床の上にあったなら
-			//if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
+			if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
 
 				// 更新後の移動体が床の下にあったなら
 				if(!isUpperSideOfFloor(this->leftX, this->topY, fObj)){
 					// 着地させる
 					this->setFloorSurface(fObj);
 					this->onFloorFlag = true;
-
-					// 更新前の移動体情報を更新
-					this->preLeftX = this->leftX;
-					this->preTopY = this->topY;
 				}
 
-				// 更新後の移動体が床の上にあったならこの床とは何もしない
+				// 更新後の移動体が床の下に無いのならこの床とは何もしない
 
-			//}
+			}
 
 			// 更新前の移動体が床の上に無いならこの床とは何もしない
 
 		}
 
-		// 中心点が床の幅の中に無く、次が床だったら
-		else{
+		// 中心点が床の幅の中に無く、左側にはみ出ている状態なら
+		else if((fObj->getEndX() <= this->rightX) && (this->rightX <= fObj->getStartX())){
+
+			FloorCObj* tmpNext = fObj->getNextFloor();
+
+			if(tmpNext == nullptr){
+
+				// 更新前の移動体が床の上にあったなら
+				if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
+
+					// 更新後の移動体が床の下にあったなら
+					if(!isUpperSideOfFloor(this->leftX, this->topY, fObj)){
+						// 着地させる
+						this->setFloorSurface(fObj);
+						this->onFloorFlag = true;
+					}
+
+					// 更新後の移動体が床の下に無いのならこの床とは何もしない
+
+				}
+
+			}
+
+			else{
+
+				// 更新前の移動体が床の上にあったなら
+				//if(isUpperSideOfFloor(this->preLeftX, this->preTopY, tmpNext)){
+
+					// 更新後の移動体が床の下にあったなら
+					if(!isUpperSideOfFloor(this->leftX, this->topY, tmpNext)){
+						// 着地させる
+						this->setFloorSurface(tmpNext);
+						this->onFloorFlag = true;
+					}
+
+					// 更新後の移動体が床の下に無いのならこの床とは何もしない
+
+				//}
+
+			}
 
 		}
+		
+		// 中心点が床の幅の中に無く、右側にはみ出ている状態なら
+		else if((fObj->getEndX() <= this->leftX) && (this->leftX <= fObj->getStartX())){
+
+			FloorCObj* tmpPre = fObj->getPreFloor();
+
+			if(tmpPre == nullptr){
+
+				// 更新前の移動体が床の上にあったなら
+				if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
+
+					// 更新後の移動体が床の下にあったなら
+					if(!isUpperSideOfFloor(this->leftX, this->topY, fObj)){
+						// 着地させる
+						this->setFloorSurface(fObj);
+						this->onFloorFlag = true;
+					}
+
+					// 更新後の移動体が床の下に無いのならこの床とは何もしない
+
+				}
+
+			}
+
+			else{
+
+				// 更新前の移動体が床の上にあったなら
+				//if(isUpperSideOfFloor(this->preLeftX, this->preTopY, tmpPre)){
+
+					// 更新後の移動体が床の下にあったなら
+					if(!isUpperSideOfFloor(this->leftX, this->topY, tmpPre)){
+						// 着地させる
+						this->setFloorSurface(tmpPre);
+						this->onFloorFlag = true;
+					}
+
+					// 更新後の移動体が床の下に無いのならこの床とは何もしない
+
+				//}
+
+			}
+		}
+
 
 	}
 	// 右側に判定のある壁なら
