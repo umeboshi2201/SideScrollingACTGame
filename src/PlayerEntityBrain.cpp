@@ -53,6 +53,50 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 				break;
 			}
 
+			break;
+
+		case GameEntityState::STATE2:
+
+			// 足場から離れてしまったら
+			if(!bufMoveObj->isOnFloor()){
+				*state = GameEntityState::STATE1;
+				*stateFrame = 0;
+			}
+
+			// ジャンプボタンを押したら
+			if(this->input->getJumpButtonState()){
+				*state = GameEntityState::STATE3;
+				*stateFrame = 0;
+			}
+
+			break;
+
+		case GameEntityState::STATE3:
+
+			// ジャンプボタンを離したら
+			if(!this->input->getJumpButtonState()){
+				*state = GameEntityState::STATE1;
+				*stateFrame = 0;
+			}
+
+			// 上昇が終わったら
+			if(- JUMPV0 + GRAVITY * (*stateFrame) > 0.0){
+				*state = GameEntityState::STATE1;
+				*stateFrame = 0;
+			}
+
+			break;
+
+		default:
+
+			break;
+
+	}
+
+	switch(*state){
+
+		case GameEntityState::STATE1:
+
 			deltaY = deltaY + GRAVITY * (*stateFrame + 1);
 
 			if(this->input->getLeftButtonState()){
@@ -70,12 +114,6 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 		case GameEntityState::STATE2:
 
-			// 足場から離れてしまったら
-			if(!bufMoveObj->isOnFloor()){
-				*state = GameEntityState::STATE1;
-				*stateFrame = 0;
-			}
-
 			if(this->input->getLeftButtonState()){
 				deltaX -= moveDeltaX;
 			}
@@ -84,12 +122,6 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 			}
 			
 			bufMoveObj->setLeftTopXY(deltaX, deltaY);
-
-			// ジャンプボタンを押したら
-			if(this->input->getJumpButtonState()){
-				*state = GameEntityState::STATE3;
-				*stateFrame = 0;
-			}
 
 			*stateFrame = *stateFrame + 1;
 
@@ -107,18 +139,6 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 			}
 
 			bufMoveObj->setLeftTopXY(deltaX, deltaY);
-
-			// ジャンプボタンを離したら
-			if(!this->input->getJumpButtonState()){
-				*state = GameEntityState::STATE1;
-				*stateFrame = 0;
-			}
-
-			// 上昇が終わったら
-			if(- JUMPV0 + GRAVITY * (*stateFrame) > 0.0){
-				*state = GameEntityState::STATE1;
-				*stateFrame = 0;
-			}
 
 			*stateFrame = *stateFrame + 1;
 
