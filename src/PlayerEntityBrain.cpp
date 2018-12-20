@@ -26,7 +26,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 	const double GRAVITY = 0.5; 
 	const double JUMPV0 = 10;
-	const double moveDeltaX = 6;
+	const double moveDeltaX = 4;
 
 	double deltaX = 0;
 	double deltaY = 0;
