@@ -114,7 +114,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 		case GameEntityState::STATE2:
 
-			deltaY = deltaY + GRAVITY * 10;
+			deltaY = deltaY + 2 * moveDeltaX;
 
 			if(this->input->getLeftButtonState()){
 				deltaX -= moveDeltaX;

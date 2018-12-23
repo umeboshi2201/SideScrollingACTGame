@@ -312,6 +312,7 @@ void MoveCObj::interact(CollideObj *obj){
 				//}
 
 			}
+
 		}
 
 
