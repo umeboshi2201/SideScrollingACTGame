@@ -10,6 +10,8 @@
 
 TestStage2Mgr::TestStage2Mgr(GameCamera *camera, GameEntityBrainMaker *brainMaker, ImageMaker *imageMaker) : StageMgr(camera, brainMaker, imageMaker){
 	this->initializer = new TestStage2Mgr::TestStage2MgrInitializer();
+	this->stageWidth = 4000;
+	this->stageHeight = 1200;
 }
 
 TestStage2Mgr::~TestStage2Mgr(){
@@ -40,6 +42,25 @@ void TestStage2Mgr::drawFloor(){
 	camera->setImage(700, 400, imgs[2], 1);
 	camera->setImage(800, 300, imgs[3], 1);
 	camera->setImage(900, 400, imgs[1], 1);
+
+	int widthCount = stageWidth / 100;
+	int heightCount = stageHeight / 100;
+	for(int i = 0; i < widthCount; i++){
+		camera->setImage(100 * i, -400, imgs[1], 1);
+		camera->setImage(100 * i, 800, imgs[1], 1);
+	}
+	for(int i = 0; i < heightCount; i++){
+		camera->setImage(0, 100 * i - 400, imgs[4], 1);
+		camera->setImage(4000, 100 * i - 400, imgs[4], 1);
+	}
+	for(int i = 0; i < 4; i++){
+		camera->setImage(1000, 400 + 100 * i, imgs[4], 1);
+	}
+	camera->setImage(1800, 800, imgs[2], 1);
+	camera->setImage(1900, 700, imgs[1], 1);
+	camera->setImage(600, 1700, imgs[4], 1);
+	camera->setImage(500, 1600, imgs[3], 1);
+	camera->setImage(500, 1600, imgs[3], 1);
 }
 
 void TestStage2Mgr::gameEntInit(GameEntity *ents, int entLength){

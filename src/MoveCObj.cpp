@@ -255,7 +255,7 @@ void MoveCObj::interact(CollideObj *obj){
 			else{
 
 				// 更新前の移動体が床の上にあったなら
-				//if(isUpperSideOfFloor(this->preLeftX, this->preTopY, tmpNext)){
+				if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
 
 					// 更新後の移動体が床の下にあったなら
 					if(!isUpperSideOfFloor(this->leftX, this->topY, tmpNext)){
@@ -266,7 +266,7 @@ void MoveCObj::interact(CollideObj *obj){
 
 					// 更新後の移動体が床の下に無いのならこの床とは何もしない
 
-				//}
+				}
 
 			}
 
@@ -298,7 +298,7 @@ void MoveCObj::interact(CollideObj *obj){
 			else{
 
 				// 更新前の移動体が床の上にあったなら
-				//if(isUpperSideOfFloor(this->preLeftX, this->preTopY, tmpPre)){
+				if(isUpperSideOfFloor(this->preLeftX, this->preTopY, fObj)){
 
 					// 更新後の移動体が床の下にあったなら
 					if(!isUpperSideOfFloor(this->leftX, this->topY, tmpPre)){
@@ -309,7 +309,7 @@ void MoveCObj::interact(CollideObj *obj){
 
 					// 更新後の移動体が床の下に無いのならこの床とは何もしない
 
-				//}
+				}
 
 			}
 

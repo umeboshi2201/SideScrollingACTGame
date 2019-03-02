@@ -12,6 +12,8 @@
 #include "TestGEBMaker.h"
 #include "StageMgr.h"
 #include "TestStageMgr.h"
+#include "TestStage2Mgr.h"
+#include "TestStage3Mgr.h"
 #include "GameEntity.h"
 
 // プログラムは WinMain から始まります
@@ -34,11 +36,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		GameEntity *ents = new GameEntity[GAME_ENTITY_MAX];
 		Input *input = new DxlibInput();
-		GameCamera *camera = new GameEntityCamera(640, 480, 1, 50);
+		GameCamera *camera = new GameEntityCamera(640, 480, 3, 500);
 		ImageMaker *imgMaker = new DxlibImageMaker();
 		MoveAndFloorCObjMgr *mAFCOMgr = new BFMoveAndFloorCObjMgr();
 		GameEntityBrainMaker *brainMaker = new TestGEBMaker(camera, imgMaker, mAFCOMgr, input);
-		StageMgr *stageMgr = new TestStageMgr(camera, brainMaker, imgMaker);
+		StageMgr *stageMgr = new TestStage3Mgr(camera, brainMaker, imgMaker);
 
 		// ステージの床初期化
 		mAFCOMgr->initFloors(stageMgr->getFloorCObjInitializer());

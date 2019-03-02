@@ -9,8 +9,11 @@ class DxlibTestBoxAndLineImage : public Image{
 		int nextY;
 		// 線分だったらtrue、矩形だったらfalse
 		bool isLine;
+		int rc;
+		int gc;
+		int bc;
 	public:
-		DxlibTestBoxAndLineImage(int, int, bool);
+		DxlibTestBoxAndLineImage(int, int, bool, int, int, int);
 		// 描画関数
 		virtual void drawImage(int, int);
 };

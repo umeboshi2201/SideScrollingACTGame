@@ -21,6 +21,9 @@ class TestStage2Mgr : public StageMgr{
 
 		TestStage2MgrInitializer *initializer;
 
+		int stageWidth;
+		int stageHeight;
+
 	public:
 		TestStage2Mgr(GameCamera *, GameEntityBrainMaker *, ImageMaker *);
 		virtual ~TestStage2Mgr();

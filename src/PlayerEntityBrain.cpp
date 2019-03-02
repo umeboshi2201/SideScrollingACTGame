@@ -43,6 +43,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 	// STATE3 空中上昇状態
 	switch(*state){
 
+		// STATE1 空中下降状態
 		case GameEntityState::STATE1:
 
 			// 着地したら
@@ -55,6 +56,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 			break;
 
+		// STATE2 地上
 		case GameEntityState::STATE2:
 
 			// 足場から離れてしまったら
@@ -71,6 +73,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 			break;
 
+		// STATE3 空中上昇状態
 		case GameEntityState::STATE3:
 
 			// ジャンプボタンを離したら
@@ -95,6 +98,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 	switch(*state){
 
+		// STATE1 空中下降状態
 		case GameEntityState::STATE1:
 
 			deltaY = deltaY + GRAVITY * (*stateFrame + 1);
@@ -112,9 +116,10 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 			break;
 
+		// STATE2 地上
 		case GameEntityState::STATE2:
 
-			deltaY = deltaY + 2 * moveDeltaX;
+			deltaY = deltaY + 1.5 * moveDeltaX;
 
 			if(this->input->getLeftButtonState()){
 				deltaX -= moveDeltaX;
@@ -129,6 +134,7 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 			break;
 
+		// STATE3 空中上昇状態
 		case GameEntityState::STATE3:
 
 			deltaY = (deltaY) - JUMPV0 + GRAVITY * (*stateFrame);
@@ -152,13 +158,13 @@ void PlayerEntityBrain::updateEntity(double *leftX, double *topY, double *width,
 
 	}
 
-	this->camera->setImage(*leftX, *topY, this->image, 1);
+	this->camera->setImage(*leftX, *topY, this->image, 2);
 
 	return;
 }
 
 void PlayerEntityBrain::initEntity(double *leftX, double *topY, double *width, double *height, GameEntityState *state, CollideObj **ppCollisionObj, CollideObj **ppMoveObj, unsigned int *liveFrame, unsigned int *stateFrame, bool *activeFlag){
-	*width = 20;
+	*width = 40;
 	*height = 50;
 	*state = GameEntityState::STATE1;
 	*ppCollisionObj = nullptr;
